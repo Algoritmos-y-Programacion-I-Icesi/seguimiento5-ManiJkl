@@ -1,9 +1,7 @@
 package ui;
 
-import model.Atraccion;
-import model.Parque;
-
 import java.util.Scanner;
+import model.Parque;
 
 /**
  * Clase de interfaz de usuario del sistema MagicWorld.
@@ -50,7 +48,7 @@ public class Interfaz {
                     generarReporteOperaciones();
                     break;
                 case 8:
-                    generarClasificacionRiesgo();
+                    generarReporteAlertasCapacidad();
                     break;
                 case 0:
                     System.out.println("\nHasta luego. Cerrando el sistema...");
@@ -92,13 +90,13 @@ public class Interfaz {
         System.out.println("\n-- Registrar Simulador Virtual --");
         String nombre        = leerTexto("Nombre de la atracción: ");
         String zona          = leerTexto("Zona de ubicación: ");
-        int capacidad        = leerEntero("Capacidad máxima (personas): ");
+        int capacidad        = leerEntero("Capacidad maxima (personas): ");
         int edadMinima       = leerEntero("Edad mínima permitida (anos): ");
         double precio        = leerDecimal("Precio de entrada ($): ");
         int estaciones       = leerEntero("Número de estaciones");
         boolean anteojos     = leerBooleano("Requiere anteojos? (s/n):");
-
-        //Completar para cumplir con el requerimiento
+        parque.agregarSimuladorVirtual(nombre, zona, capacidad, edadMinima, precio, estaciones, anteojos);
+        System.out.println("Simulador virtual registrado correctamente.");
     }
 
     /**
@@ -107,31 +105,28 @@ public class Interfaz {
     public static void registrarJuegoInfantil() {
         System.out.println("\n-- Registrar Juego Infantil --");
         String nombre        = leerTexto("Nombre de la atracción: ");
-        String zona          = leerTexto("Zona de ubicación: ");
-        int capacidad        = leerEntero("Capacidad máxima (personas): ");
-        int edadMinima       = leerEntero("Edad mínima permitida (años): ");
+        String zona          = leerTexto("Zona de ubicacion: ");
+        int capacidad        = leerEntero("Capacidad maxima (personas): ");
+        int edadMinima       = leerEntero("Edad minima permitida (años): ");
         double precio        = leerDecimal("Precio de entrada ($): ");
-        int edadMaxima       = leerEntero("Edad máxima permitida (años): ");
+        int edadMaxima       = leerEntero("Edad maxima permitida (años): ");
         boolean supervision  = leerBooleano("Requiere supervisión personal? (s/n):");
-
-        //Completar para cumplir con el requerimiento
+        parque.agregarJuegoInfantil(nombre, zona, capacidad, edadMinima, precio, edadMaxima, supervision);
     }
 
     /**
      * Solicita los datos al usuario y registra una Espectácuilo pirotécnico.
      */
     public static void registrarEspectaculoPirotecnico() {
-        System.out.println("\n-- Registrar Espectácuilo Pirotécnico --");
+        System.out.println("\n-- Registrar Espectaculo Pirotecnico --");
         String nombre        = leerTexto("Nombre de la atraccion: ");
-        String zona          = leerTexto("Zona de ubicación: ");
-        int capacidad        = leerEntero("Capacidad máxima (personas): ");
-        int edadMinima       = leerEntero("Edad mínima permitida (anos): ");
+        String zona          = leerTexto("Zona de ubicacion: ");
+        int capacidad        = leerEntero("Capacidad maxima (personas): ");
+        int edadMinima       = leerEntero("Edad minima permitida (anos): ");
         double precio        = leerDecimal("Precio de entrada ($): ");
         int duracion         = leerEntero("Duración en minutos: ");
         boolean materialPeligroso    = leerBooleano("usa material peligroso? (s/n): ");
-
-
-        //Completar para cumplir con el requerimiento
+        parque.agregarEspectaculoPirotecnico(nombre, zona, capacidad, edadMinima, precio, duracion, materialPeligroso);
     }
 
     /**
@@ -139,15 +134,15 @@ public class Interfaz {
      * de visitantes recibidos durante el día.
      */
     public static void registrarVisitantesAtraccion() {
-        System.out.println("\n-- Registrar visitantes por día --");
+        System.out.println("\n-- Registrar visitantes por dia --");
 
         String nombreAtraccion = leerTexto("Nombre de la atracción: ");
         int visitantes = leerEntero("Cantidad de visitantes del día: ");
         if (visitantes < 0) {
-            System.out.println("La cantidad de visitantes no puede ser negativa.");
-
-        parque.registrarVisitantes(nombreAtraccion, visitantes);
+            System.out.println("La cantidad de visitantes no puede ser negativa");
+            return;
         }
+        parque.registrarVisitantes(nombreAtraccion, visitantes);
     }
 
     public static void mostrarIngresosDiarios(){
